@@ -100,3 +100,41 @@
         {sector:'Consumer',view:'mixed',why_he:'הצרכן עדיין מחזיק אבל מפוצל לפי הכנסה.',drivers:['cash balances','wages'],risks:['gasoline','pricing']}
       ]
     };
+
+    const els = { tiles:document.getElementById('tiles'), dailySummary:document.getElementById('dailySummary'), dailyBullets:document.getElementById('dailyBullets'), macroCards:document.getElementById('macroCards'), eventsList:document.getElementById('eventsList'), watchCards:document.getElementById('watchCards'), shortlist:document.getElementById('shortlist'), sectorViews:document.getElementById('sectorViews'), jsonBox:document.getElementById('jsonBox'), stanceBadge:document.getElementById('stanceBadge'), summaryTag:document.getElementById('summaryTag'), status:document.getElementById('status') };
+
+    const tileData = [['Market stance','שורי','אבל צפוף, ממונף ותלוי ריבית.'],['Key risk','PCE','אם האינפלציה חמה, multiples בלחץ.'],['Leadership','AI capex','ההובלה עברה לתשתית פיזית.'],['Watch list','10Y / Oil','ריביות ונפט הם הטון של השבוע.']];
+    const badgeFor = d => d==='up' ? 'up' : d==='down' ? 'down' : 'flat';
+    const safeJoin = arr => Array.isArray(arr) ? arr.join(' · ') : '';
+
+    function render(data){
+      els.status.textContent = `Loaded from ${DATA_URL}`;
+      els.stanceBadge.textContent = `${data.market_tone.stance.toUpperCase()} · ${data.market_tone.confidence}`;
+      els.summaryTag.textContent = data.brief_title;
+      els.tiles.innerHTML = tileData.map(t=>`<div class="tile"><div class="label">${t[0]}</div><div class="value">${t[1]}</div><div class="note">${t[2]}</div></div>`).join('');
+      els.dailySummary.textContent = data.market_tone.summary_he + ' ' + 'המשימה היא להישאר בתוך הטרנד אבל לבחור את החוליות הנכונות.';
+      els.dailyBullets.innerHTML = ['AI הוא כבר מנוע קייפקס אמיתי, לא רק נרטיב מניות.','הסיכון המרכזי כרגע הוא שינוי בהובלה, לא קריסה של השוק.','Low vol, quality ו־hedges חשובים לצד חשיפות AI.'].map(x=>`<li>${x}</li>`).join('');
+      els.macroCards.innerHTML = data.macro_points.map(p=>`<div class="group-item"><div class="h">${p.point_he}</div><div class="w">${p.point_en} <span class="meta">[${p.category}]</span></div></div>`).join('');
+      els.eventsList.innerHTML = data.events_week.map(e=>`<div class="event"><div class="date">${e.date}</div><div class="title">${e.title}</div><div class="note">${e.note_he}</div><div class="small">${safeJoin(e.affected_tickers)} · ${safeJoin(e.affected_themes)}</div></div>`).join('');
+      els.watchCards.innerHTML = data.watch_items.map(w=>`<div class="group-item"><div class="h">${w.item}</div><div class="w">${w.why_he}</div></div>`).join('');
+      els.sectorViews.innerHTML = data.sector_views.map(s=>`<div class="event"><div class="title">${s.sector} — ${s.view}</div><div class="note">${s.why_he}</div><div class="small">Drivers: ${safeJoin(s.drivers)} | Risks: ${safeJoin(s.risks)}</div></div>`).join('');
+      els.shortlist.innerHTML = data.shortlist.map((item, idx)=>`<div class="mini ${idx===0?'active':''}" data-idx="${idx}"><div class="row"><div><div class="ticker">${item.ticker}</div><div class="company">${item.company}</div></div><div class="chip ${badgeFor(item.trend_direction)}">${item.hover_label}</div></div><div class="hover">${item.thesis_he}</div><div class="drawer"><h4>${item.company}</h4><div><b>Thesis:</b> ${item.thesis_he}</div><div><b>Why now:</b> ${item.why_now_he}</div><div><b>Risk:</b> ${item.risk_he}</div><div><b>Confirm:</b> ${item.confirm_he}</div><div><b>Invalidate:</b> ${item.invalidate_he}</div></div></div>`).join('');
+      els.jsonBox.textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function boot(){
+      try {
+        const url = DATA_URL + (DATA_URL.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+        const res = await fetch(url, { cache:'no-store' });
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        render(data);
+      } catch (e) {
+        els.status.textContent = 'Loaded sample fallback (could not fetch external JSON).';
+        render(SAMPLE);
+      }
+    }
+    boot();
+  </script>
+</body>
+</html>
