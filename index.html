@@ -1,1 +1,140 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deep Analysis Desk - Fetch JSON</title>
+  <style>
+    :root { --bg:#0b1020; --panel:#11182d; --panel2:#16213a; --text:#eef2ff; --muted:#9aa7c7; --accent:#6ea8fe; --good:#41d17d; --warn:#ffb84d; --bad:#ff6b6b; --border:rgba(255,255,255,.08);} 
+    *{box-sizing:border-box;} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#090d1a 0%,#0b1020 100%);color:var(--text);} 
+    .wrap{max-width:1600px;margin:0 auto;padding:20px;} .topbar{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:16px;} 
+    .title h1{margin:0;font-size:28px;} .title .sub{color:var(--muted);margin-top:6px;line-height:1.5;} .badge{background:rgba(110,168,254,.12);color:var(--accent);border:1px solid rgba(110,168,254,.25);padding:8px 12px;border-radius:999px;font-size:13px;white-space:nowrap;} 
+    .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;} .tile,.card,.mini,.event,.group-item{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid var(--border);border-radius:16px;} .tile{padding:14px;} .tile .label,.section-title span,.meta,.small,.company,.note,.drawer,.group-item .w{color:var(--muted);} .tile .value{font-size:26px;font-weight:800;margin-top:8px;} .tile .note{margin-top:6px;font-size:13px;line-height:1.4;} 
+    .grid{display:grid;grid-template-columns:1.2fr .95fr;gap:16px;} .card{padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.18);} .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;} .section-title h2{margin:0;font-size:18px;} .summary{line-height:1.8;color:#f1f4ff;font-size:16px;} .bullets{margin:12px 0 0;padding:0 18px 0 0;color:#dce4ff;} .bullets li{margin:8px 0;} 
+    .group{margin-top:14px;} .group h3{margin:0 0 10px;font-size:16px;} .group-item{padding:12px;margin-bottom:10px;} .group-item .h{font-weight:700;margin-bottom:6px;} .list{display:grid;gap:10px;} .event{padding:12px;} .event .date{color:var(--accent);font-size:12px;margin-bottom:6px;} .event .title{font-weight:700;margin-bottom:6px;} .event .note{font-size:13px;line-height:1.5;} 
+    .shortlist{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;} .mini{min-width:250px;padding:14px;flex:0 0 auto;cursor:pointer;} .mini.active{outline:2px solid rgba(110,168,254,.55);} .row{display:flex;justify-content:space-between;align-items:center;gap:10px;} .ticker{font-size:20px;font-weight:800;} .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:12px;border:1px solid var(--border);background:var(--panel2);} .up{color:var(--good);} .down{color:var(--bad);} .flat{color:var(--warn);} .hover{margin-top:12px;color:#e8eeff;font-size:13px;line-height:1.5;min-height:40px;} .drawer{margin-top:12px;background:var(--panel2);border-radius:14px;padding:12px;font-size:13px;line-height:1.65;} .drawer h4{margin:0 0 6px;font-size:14px;color:var(--text);} .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;} .footer{margin-top:16px;color:var(--muted);font-size:12px;text-align:center;} .json-box{background:#08101f;border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto;max-height:260px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;white-space:pre-wrap;direction:ltr;text-align:left;} 
+    .status{font-size:12px;color:var(--muted);margin-top:8px;} 
+    @media (max-width:1100px){.grid,.two{grid-template-columns:1fr;} .tiles{grid-template-columns:repeat(2,1fr);}} @media (max-width:700px){.tiles{grid-template-columns:1fr;} .topbar{flex-direction:column;}} 
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="title">
+        <h1>דסק ניתוח עמוק</h1>
+        <div class="sub">העמוד טוען JSON חיצוני ומצייר ממנו את הסיכום, ה־shortlist והאלרטים. אם הטעינה נכשלת, הוא נופל ל־sample פנימי.</div>
+        <div class="status" id="status">Loading data…</div>
+      </div>
+      <div class="badge" id="stanceBadge">...</div>
+    </div>
 
+    <div class="tiles" id="tiles"></div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="section-title"><h2>תמונה יומית</h2><span id="summaryTag">summary</span></div>
+        <div class="summary" id="dailySummary"></div>
+        <ul class="bullets" id="dailyBullets"></ul>
+        <div class="group"><h3>מקורות כוח</h3><div id="macroCards"></div></div>
+      </div>
+      <div class="card">
+        <div class="section-title"><h2>Events & alerts</h2><span>השבוע הקרוב</span></div>
+        <div class="list" id="eventsList"></div>
+        <div class="group"><h3>מה לבדוק</h3><div id="watchCards"></div></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="section-title"><h2>Shortlist</h2><span>לחיצה פותחת פירוט</span></div>
+      <div class="shortlist" id="shortlist"></div>
+    </div>
+
+    <div class="two">
+      <div class="card">
+        <div class="section-title"><h2>Sector views</h2><span>ranked themes</span></div>
+        <div class="list" id="sectorViews"></div>
+      </div>
+      <div class="card">
+        <div class="section-title"><h2>Raw JSON</h2><span>for backend / alerts</span></div>
+        <div class="json-box" id="jsonBox"></div>
+      </div>
+    </div>
+
+    <div class="footer">Replace DATA_URL with your GitHub Pages raw JSON or API endpoint.</div>
+  </div>
+
+  <script>
+    const DATA_URL = 'data.json';
+    const SAMPLE = {
+      source_language:'mixed', brief_title:'Opening week desk review — 26 May 2026', brief_date:'2026-05-26',
+      market_tone:{stance:'bullish', confidence:'high', summary_he:'השוק שורי אבל סלקטיבי וצפוף.', summary_en:'Bullish but selective and crowded.'},
+      macro_points:[
+        {point_he:'AI capex cycle מתרחב ולא נחלש.', point_en:'AI capex is expanding, not fading.', category:'growth'},
+        {point_he:'WTI יורד ותומך ב-risk-on.', point_en:'Lower oil supports risk appetite.', category:'commodities'},
+        {point_he:'תשואת 10Y סביב 4.50% נשארת אזור רגיש.', point_en:'10Y around 4.50% remains a sensitive zone.', category:'rates'},
+        {point_he:'PCE וחזרה אפשרית של אינפלציה הם סיכון מרכזי.', point_en:'PCE/inflation is the key risk.', category:'inflation'}
+      ],
+      sector_points:[
+        {sector:'Semis',view:'bullish',point_he:'הזרימות חוזרות לסמיס אבל הסקטור צפוף.',point_en:'Flows are back into semis, but crowded.',drivers:['AI capex','fund flows'],risks:['rates','positioning']},
+        {sector:'Memory / Storage',view:'bullish',point_he:'HBM, NAND ו־enterprise SSD נהיים צוואר בקבוק אסטרטגי.',point_en:'HBM, NAND, and SSD are strategic bottlenecks.',drivers:['AI servers','pricing'],risks:['cycle','supply response']},
+        {sector:'Power / Cooling',view:'bullish',point_he:'חשמל וקירור הם מגבלת קצב של ה־AI stack.',point_en:'Power and cooling are rate limiters for AI.',drivers:['data center load','grid constraints'],risks:['execution','permitting']},
+        {sector:'Defensive / Low Vol',view:'mixed',point_he:'Low vol יכול לעבוד אם התשואות עולות או השוק מתרחב.',point_en:'Low vol can work if yields rise or breadth improves.',drivers:['rates','rotation'],risks:['missed upside']}
+      ],
+      shortlist:[
+        {ticker:'NVDA', company:'NVIDIA', trend_direction:'up', hover_label:'AI capex beneficiary', thesis_he:'משחק על תזת ה־AI capex והתרחבות התשתית הפיזית.', thesis_en:'AI capex / infrastructure exposure.', why_now_he:'הזרימות והרקע המאקרו תומכים, אבל השוק כבר צפוף.', value_chain_role:'leader', market_is_missing:'הערך נמצא בחוליות חובה, לא רק בכותרת AI.', risk_he:'סיכון מריביות, נפט ופוזיציונינג.', confirm_he:'המשך capex, המשך ביקושים, ועומס בצווארי בקבוק.', invalidate_he:'פגיעה ב־PCE, עליית תשואות או רוטציה אלימה.', conviction_score:8, timing_score:8, asymmetry_score:5, detail_notes_he:['הטרנד עדיין שורי.','הפוזיציונינג צפוף.','צווארי הבקבוק מתרחבים.'], related_events:['PCE','TSMC sales','AVGO earnings']},
+        {ticker:'AVGO', company:'Broadcom', trend_direction:'up', hover_label:'AI capex beneficiary', thesis_he:'משחק על custom silicon, networking ו־AI infrastructure.', thesis_en:'Custom silicon and networking exposure.', why_now_he:'הקטליסטים הקרובים ישירים לתזה.', value_chain_role:'leader', market_is_missing:'לא רק שבבים — גם מערכת ההובלה של הדאטה.', risk_he:'תמחור ופוזיציונינג.', confirm_he:'capex חיובי והמשך ביקוש לרשתות/ASICs.', invalidate_he:'האטה ב־AI spend או compression במכפילים.', conviction_score:8, timing_score:8, asymmetry_score:6, detail_notes_he:['ענף חובה במפעל ה־AI.','מרוויח מהתפשטות מעבר ל־GPU.','קטליסט קרוב לדוח.'], related_events:['Broadcom earnings']}
+      ],
+      events_week:[
+        {date:'2026-05-28', title:'PCE inflation print', affected_tickers:['XOM','NVDA','AVGO','TJX'], affected_themes:['rates','AI','consumer'], note_he:'PCE יכול לשנות את טון הריביות ואת מנהיגות השוק.', note_en:'PCE can change the rates tone and leadership.', priority:'high'},
+        {date:'2026-06-03', title:'Broadcom earnings', affected_tickers:['AVGO','MRVL','ANET'], affected_themes:['semis','networking','AI infrastructure'], note_he:'קטליסט ישיר ל־AI infrastructure ותשתיות רשת.', note_en:'Direct catalyst for AI infrastructure and networking.', priority:'high'}
+      ],
+      watch_items:[
+        {item:'10Y above 4.5%', why_he:'יכול ללחוץ על multiples ועל momentum.', signal_type:'rates'},
+        {item:'PCE hotter than expected', why_he:'יכול להפוך את הטון בשוק במהירות.', signal_type:'macro'},
+        {item:'Oil rebound', why_he:'מסכן את ה־risk-on וה־consumer.', signal_type:'commodity'},
+        {item:'Broadcom earnings', why_he:'מדד מרכזי ל־AI infrastructure.', signal_type:'earnings'}
+      ],
+      sector_views:[
+        {sector:'Semis',view:'bullish',why_he:'AI capex והתפשטות המפעל הפיזי ממשיכים לתמוך.',drivers:['capex','flows'],risks:['crowding','yields']},
+        {sector:'Power',view:'bullish',why_he:'Grid, cooling ו־bridge power הם bottlenecks אמיתיים.',drivers:['data centers','load growth'],risks:['permits','supply']},
+        {sector:'Consumer',view:'mixed',why_he:'הצרכן עדיין מחזיק אבל מפוצל לפי הכנסה.',drivers:['cash balances','wages'],risks:['gasoline','pricing']}
+      ]
+    };
+
+    const els = { tiles:document.getElementById('tiles'), dailySummary:document.getElementById('dailySummary'), dailyBullets:document.getElementById('dailyBullets'), macroCards:document.getElementById('macroCards'), eventsList:document.getElementById('eventsList'), watchCards:document.getElementById('watchCards'), shortlist:document.getElementById('shortlist'), sectorViews:document.getElementById('sectorViews'), jsonBox:document.getElementById('jsonBox'), stanceBadge:document.getElementById('stanceBadge'), summaryTag:document.getElementById('summaryTag'), status:document.getElementById('status') };
+
+    const tileData = [['Market stance','שורי','אבל צפוף, ממונף ותלוי ריבית.'],['Key risk','PCE','אם האינפלציה חמה, multiples בלחץ.'],['Leadership','AI capex','ההובלה עברה לתשתית פיזית.'],['Watch list','10Y / Oil','ריביות ונפט הם הטון של השבוע.']];
+    const badgeFor = d => d==='up' ? 'up' : d==='down' ? 'down' : 'flat';
+    const safeJoin = arr => Array.isArray(arr) ? arr.join(' · ') : '';
+
+    function render(data){
+      els.status.textContent = `Loaded from ${DATA_URL}`;
+      els.stanceBadge.textContent = `${data.market_tone.stance.toUpperCase()} · ${data.market_tone.confidence}`;
+      els.summaryTag.textContent = data.brief_title;
+      els.tiles.innerHTML = tileData.map(t=>`<div class="tile"><div class="label">${t[0]}</div><div class="value">${t[1]}</div><div class="note">${t[2]}</div></div>`).join('');
+      els.dailySummary.textContent = data.market_tone.summary_he + ' ' + 'המשימה היא להישאר בתוך הטרנד אבל לבחור את החוליות הנכונות.';
+      els.dailyBullets.innerHTML = ['AI הוא כבר מנוע קייפקס אמיתי, לא רק נרטיב מניות.','הסיכון המרכזי כרגע הוא שינוי בהובלה, לא קריסה של השוק.','Low vol, quality ו־hedges חשובים לצד חשיפות AI.'].map(x=>`<li>${x}</li>`).join('');
+      els.macroCards.innerHTML = data.macro_points.map(p=>`<div class="group-item"><div class="h">${p.point_he}</div><div class="w">${p.point_en} <span class="meta">[${p.category}]</span></div></div>`).join('');
+      els.eventsList.innerHTML = data.events_week.map(e=>`<div class="event"><div class="date">${e.date}</div><div class="title">${e.title}</div><div class="note">${e.note_he}</div><div class="small">${safeJoin(e.affected_tickers)} · ${safeJoin(e.affected_themes)}</div></div>`).join('');
+      els.watchCards.innerHTML = data.watch_items.map(w=>`<div class="group-item"><div class="h">${w.item}</div><div class="w">${w.why_he}</div></div>`).join('');
+      els.sectorViews.innerHTML = data.sector_views.map(s=>`<div class="event"><div class="title">${s.sector} — ${s.view}</div><div class="note">${s.why_he}</div><div class="small">Drivers: ${safeJoin(s.drivers)} | Risks: ${safeJoin(s.risks)}</div></div>`).join('');
+      els.shortlist.innerHTML = data.shortlist.map((item, idx)=>`<div class="mini ${idx===0?'active':''}" data-idx="${idx}"><div class="row"><div><div class="ticker">${item.ticker}</div><div class="company">${item.company}</div></div><div class="chip ${badgeFor(item.trend_direction)}">${item.hover_label}</div></div><div class="hover">${item.thesis_he}</div><div class="drawer"><h4>${item.company}</h4><div><b>Thesis:</b> ${item.thesis_he}</div><div><b>Why now:</b> ${item.why_now_he}</div><div><b>Risk:</b> ${item.risk_he}</div><div><b>Confirm:</b> ${item.confirm_he}</div><div><b>Invalidate:</b> ${item.invalidate_he}</div></div></div>`).join('');
+      els.jsonBox.textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function boot(){
+      try {
+        const url = DATA_URL + (DATA_URL.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+        const res = await fetch(url, { cache:'no-store' });
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        render(data);
+      } catch (e) {
+        els.status.textContent = 'Loaded sample fallback (could not fetch external JSON).';
+        render(SAMPLE);
+      }
+    }
+    boot();
+  </script>
+</body>
+</html>
