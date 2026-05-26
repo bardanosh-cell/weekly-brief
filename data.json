@@ -1,0 +1,444 @@
+{
+  "source_language": "mixed",
+  "brief_title": "Opening week desk review — 26 May 2026",
+  "brief_date": "2026-05-26",
+  "market_tone": {
+    "stance": "bullish",
+    "confidence": "high",
+    "summary_he": "השוק שורי אבל סלקטיבי וצפוף.",
+    "summary_en": "Bullish but selective and crowded."
+  },
+  "macro_points": [
+    {
+      "point_he": "AI capex cycle מתרחב ולא נחלש.",
+      "point_en": "AI capex is expanding, not fading.",
+      "category": "growth"
+    },
+    {
+      "point_he": "WTI יורד ותומך ב-risk-on.",
+      "point_en": "Lower oil supports risk appetite.",
+      "category": "commodities"
+    },
+    {
+      "point_he": "תשואת 10Y סביב 4.50% נשארת אזור רגיש.",
+      "point_en": "10Y around 4.50% remains a sensitive zone.",
+      "category": "rates"
+    },
+    {
+      "point_he": "PCE וחזרה אפשרית של אינפלציה הם סיכון מרכזי.",
+      "point_en": "PCE/inflation is the key risk.",
+      "category": "inflation"
+    }
+  ],
+  "sector_points": [
+    {
+      "sector": "Semis",
+      "view": "bullish",
+      "point_he": "הזרימות חוזרות לסמיס אבל הסקטור צפוף.",
+      "point_en": "Flows are back into semis, but crowded.",
+      "drivers": [
+        "AI capex",
+        "fund flows"
+      ],
+      "risks": [
+        "rates",
+        "positioning"
+      ]
+    },
+    {
+      "sector": "Memory / Storage",
+      "view": "bullish",
+      "point_he": "HBM, NAND ו־enterprise SSD נהיים צוואר בקבוק אסטרטגי.",
+      "point_en": "HBM, NAND, and SSD are strategic bottlenecks.",
+      "drivers": [
+        "AI servers",
+        "pricing"
+      ],
+      "risks": [
+        "cycle",
+        "supply response"
+      ]
+    },
+    {
+      "sector": "Power / Cooling",
+      "view": "bullish",
+      "point_he": "חשמל וקירור הם מגבלת קצב של ה־AI stack.",
+      "point_en": "Power and cooling are rate limiters for AI.",
+      "drivers": [
+        "data center load",
+        "grid constraints"
+      ],
+      "risks": [
+        "execution",
+        "permitting"
+      ]
+    },
+    {
+      "sector": "Defensive / Low Vol",
+      "view": "mixed",
+      "point_he": "Low vol יכול לעבוד אם התשואות עולות או השוק מתרחב.",
+      "point_en": "Low vol can work if yields rise or breadth improves.",
+      "drivers": [
+        "rates",
+        "rotation"
+      ],
+      "risks": [
+        "missed upside"
+      ]
+    }
+  ],
+  "shortlist": [
+    {
+      "ticker": "NVDA",
+      "company": "NVIDIA",
+      "trend_direction": "up",
+      "hover_label": "AI capex beneficiary",
+      "thesis_he": "משחק על תזת ה־AI capex והתרחבות התשתית הפיזית.",
+      "thesis_en": "AI capex / infrastructure exposure.",
+      "why_now_he": "הזרימות והרקע המאקרו תומכים, אבל השוק כבר צפוף.",
+      "value_chain_role": "leader",
+      "market_is_missing": "הערך נמצא בחוליות חובה, לא רק בכותרת AI.",
+      "risk_he": "סיכון מריביות, נפט ופוזיציונינג.",
+      "confirm_he": "המשך capex, המשך ביקושים, ועומס בצווארי בקבוק.",
+      "invalidate_he": "פגיעה ב־PCE, עליית תשואות או רוטציה אלימה.",
+      "conviction_score": 8,
+      "timing_score": 8,
+      "asymmetry_score": 5,
+      "detail_notes_he": [
+        "הטרנד עדיין שורי.",
+        "הפוזיציונינג צפוף.",
+        "צווארי הבקבוק מתרחבים."
+      ],
+      "related_events": [
+        "PCE",
+        "TSMC sales",
+        "AVGO earnings"
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "company": "Broadcom",
+      "trend_direction": "up",
+      "hover_label": "AI capex beneficiary",
+      "thesis_he": "משחק על custom silicon, networking ו־AI infrastructure.",
+      "thesis_en": "Custom silicon and networking exposure.",
+      "why_now_he": "הקטליסטים הקרובים ישירים לתזה.",
+      "value_chain_role": "leader",
+      "market_is_missing": "לא רק שבבים — גם מערכת ההובלה של הדאטה.",
+      "risk_he": "תמחור ופוזיציונינג.",
+      "confirm_he": "capex חיובי והמשך ביקוש לרשתות/ASICs.",
+      "invalidate_he": "האטה ב־AI spend או compression במכפילים.",
+      "conviction_score": 8,
+      "timing_score": 8,
+      "asymmetry_score": 6,
+      "detail_notes_he": [
+        "ענף חובה במפעל ה־AI.",
+        "מרוויח מהתפשטות מעבר ל־GPU.",
+        "קטליסט קרוב לדוח."
+      ],
+      "related_events": [
+        "Broadcom earnings"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "company": "Micron",
+      "trend_direction": "up",
+      "hover_label": "Memory bottleneck",
+      "thesis_he": "HBM, NAND ו־SSD נהיים צוואר בקבוק אסטרטגי.",
+      "thesis_en": "HBM, NAND and SSD are strategic bottlenecks.",
+      "why_now_he": "הביקוש ל־AI storage ובנדווידת זיכרון עולה מהר.",
+      "value_chain_role": "enabler",
+      "market_is_missing": "AI צריך storage לא פחות מ־compute.",
+      "risk_he": "מחזוריות ותגובה מהירה של ההיצע.",
+      "confirm_he": "שיפור במחירי חוזים וביקוש ל־HBM4/SSD.",
+      "invalidate_he": "התרחבות מהירה מדי של ההיצע.",
+      "conviction_score": 8,
+      "timing_score": 8,
+      "asymmetry_score": 7,
+      "detail_notes_he": [
+        "זיכרון נהיה שכבת חובה.",
+        "NAND זינק חד.",
+        "HBM נשאר צוואר הבקבוק."
+      ],
+      "related_events": [
+        "Memory pricing updates"
+      ]
+    },
+    {
+      "ticker": "ASML",
+      "company": "ASML",
+      "trend_direction": "up",
+      "hover_label": "Semicap bottleneck",
+      "thesis_he": "מורכבות הייצור מעלה את הערך של ציוד ושירותי תהליך.",
+      "thesis_en": "Manufacturing complexity boosts equipment value.",
+      "why_now_he": "כל דור חדש של שבבים דורש יותר process control ו־packaging.",
+      "value_chain_role": "bottleneck owner",
+      "market_is_missing": "התרחבות AI מגדילה מורכבות, לא רק כמות.",
+      "risk_he": "האטה בקייפקס או דחיות אצל הייפרסקיילרים.",
+      "confirm_he": "המשך הזמנות, hiring והרחבת capacity.",
+      "invalidate_he": "קיטון ב־WFE או בדיקות קפדניות יותר לתקציבי capex.",
+      "conviction_score": 8,
+      "timing_score": 7,
+      "asymmetry_score": 6,
+      "detail_notes_he": [
+        "נהנית ממורכבות ולא רק מגודל השוק.",
+        "הצפי להתרחבות פיזית חיובי.",
+        "עובדת טוב עם HBM/packaging."
+      ],
+      "related_events": [
+        "TSMC sales"
+      ]
+    },
+    {
+      "ticker": "VRT",
+      "company": "Vertiv",
+      "trend_direction": "up",
+      "hover_label": "Power for AI",
+      "thesis_he": "חשמל וקירור הם מגבלת הקצב של הדאטה סנטרים.",
+      "thesis_en": "Power and cooling are the rate limiters.",
+      "why_now_he": "הנתונים והכותרות מחזקים את תזת ה־bridge power.",
+      "value_chain_role": "enabler",
+      "market_is_missing": "AI לא סקייל בלי קירור ו־power delivery.",
+      "risk_he": "תמחור/ציפיות גבוהות מדי.",
+      "confirm_he": "המשך הזמנות ותזמוני פרויקטים.",
+      "invalidate_he": "עיכובים בפרויקטים או לחץ על multiples.",
+      "conviction_score": 8,
+      "timing_score": 8,
+      "asymmetry_score": 6,
+      "detail_notes_he": [
+        "Energy is an input, not just a macro variable.",
+        "Cooling is a bottleneck.",
+        "Data centers need time-to-power."
+      ],
+      "related_events": [
+        "Data center buildouts"
+      ]
+    },
+    {
+      "ticker": "CEG",
+      "company": "Constellation",
+      "trend_direction": "up",
+      "hover_label": "IPP / grid leverage",
+      "thesis_he": "IPPs יכולים לספק capacity בזמן שהרשת איטית.",
+      "thesis_en": "IPPs can supply capacity while the grid lags.",
+      "why_now_he": "PJM, bridge power ו־colocation הופכים רלוונטיים יותר.",
+      "value_chain_role": "enabler",
+      "market_is_missing": "גמישות החשמל נהיית מוצר אסטרטגי.",
+      "risk_he": "רגולציה, תמחור ויישום פרויקטים.",
+      "confirm_he": "עוד capacity resources ו־PPA חדשים.",
+      "invalidate_he": "שינוי סנטימנט על תשואות או רגולציה.",
+      "conviction_score": 7,
+      "timing_score": 8,
+      "asymmetry_score": 6,
+      "detail_notes_he": [
+        "חשמל הופך צוואר בקבוק.",
+        "Bridge power חשוב.",
+        "PJM הוא מפתח."
+      ],
+      "related_events": [
+        "Grid interconnection"
+      ]
+    },
+    {
+      "ticker": "TLN",
+      "company": "Talen",
+      "trend_direction": "up",
+      "hover_label": "Power / gas storage",
+      "thesis_he": "נהנית מהביקוש לגז, storage ו־bridge power לדאטה סנטרים.",
+      "thesis_en": "Gas, storage, and bridge power for data centers.",
+      "why_now_he": "הדאטה סנטרים צריכים capacity אמינה מהר.",
+      "value_chain_role": "enabler",
+      "market_is_missing": "הצורך ב־bridge power יכול לגדול מהר מהצפוי.",
+      "risk_he": "פוליטיקה, אישורים וקצב פרויקטים.",
+      "confirm_he": "פרויקטים ו־PPA נוספים.",
+      "invalidate_he": "ירידה בביקוש או בלחץ הקפקס.",
+      "conviction_score": 7,
+      "timing_score": 8,
+      "asymmetry_score": 6,
+      "detail_notes_he": [
+        "hybrid solutions נהיים חשובים.",
+        "Data center demand תומך.",
+        "Gas/storage עולים ברלוונטיות."
+      ],
+      "related_events": [
+        "PJM queue"
+      ]
+    },
+    {
+      "ticker": "ANET",
+      "company": "Arista",
+      "trend_direction": "up",
+      "hover_label": "Network backbone",
+      "thesis_he": "AI דורש קישוריות, scale-out ו־latency נמוך.",
+      "thesis_en": "AI demands connectivity, scale-out and low latency.",
+      "why_now_he": "הטרנד בתשתית הרשת נשאר חזק.",
+      "value_chain_role": "enabler",
+      "market_is_missing": "AI factory חייב רשת חזקה כמו compute.",
+      "risk_he": "תמחור וציפיות.",
+      "confirm_he": "המשך ביקוש לרשתות AI.",
+      "invalidate_he": "אטה בהרחבת clusters.",
+      "conviction_score": 7,
+      "timing_score": 7,
+      "asymmetry_score": 5,
+      "detail_notes_he": [
+        "Networking הוא צוואר בקבוק.",
+        "Latency matters.",
+        "Scale-out remains key."
+      ],
+      "related_events": [
+        "Infrastructure capex"
+      ]
+    },
+    {
+      "ticker": "FSLR",
+      "company": "First Solar",
+      "trend_direction": "up",
+      "hover_label": "Clean power PPA",
+      "thesis_he": "Clean energy נשארת חלק מהפתרון ל־AI power demand.",
+      "thesis_en": "Clean energy remains part of the AI power solution.",
+      "why_now_he": "PPA ארוך טווח ו־domestic power מקבלים ערך.",
+      "value_chain_role": "enabler",
+      "market_is_missing": "חשמל מקומי יכול להיות אסטרטגי לדאטה סנטרים.",
+      "risk_he": "רגולציה, תמחור ואופי הסקטור.",
+      "confirm_he": "עוד PPAs ויכולת אספקה.",
+      "invalidate_he": "שינוי תמריצים או לחץ על מכפילים.",
+      "conviction_score": 6,
+      "timing_score": 7,
+      "asymmetry_score": 5,
+      "detail_notes_he": [
+        "Power demand supports the theme.",
+        "Domestic supply matters.",
+        "Clean energy can broaden leadership."
+      ],
+      "related_events": [
+        "Long-term PPAs"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "company": "Rocket Lab",
+      "trend_direction": "up",
+      "hover_label": "Space / tactical",
+      "thesis_he": "החלל נהיה אדג׳ של AI-adjacent TAM, לא ליבת התזה.",
+      "thesis_en": "Space is an AI-adjacent TAM edge, not the core thesis.",
+      "why_now_he": "יכול לעבוד על כותרות, אבל זה טקטי.",
+      "value_chain_role": "challenger",
+      "market_is_missing": "הנרטיב יכול למשוך, אבל execution קובע.",
+      "risk_he": "dilution ו־execution.",
+      "confirm_he": "חוזים ו־funding.",
+      "invalidate_he": "אכזבת ביצוע או דילול.",
+      "conviction_score": 5,
+      "timing_score": 6,
+      "asymmetry_score": 5,
+      "detail_notes_he": [
+        "Speculative but interesting.",
+        "Defense + space read-through.",
+        "Tactical, not core."
+      ],
+      "related_events": [
+        "Space contracts"
+      ]
+    }
+  ],
+  "events_week": [
+    {
+      "date": "2026-05-28",
+      "title": "PCE inflation print",
+      "affected_tickers": [
+        "XOM",
+        "NVDA",
+        "AVGO",
+        "TJX"
+      ],
+      "affected_themes": [
+        "rates",
+        "AI",
+        "consumer"
+      ],
+      "note_he": "PCE יכול לשנות את טון הריביות ואת מנהיגות השוק.",
+      "note_en": "PCE can change the rates tone and leadership.",
+      "priority": "high"
+    },
+    {
+      "date": "2026-06-03",
+      "title": "Broadcom earnings",
+      "affected_tickers": [
+        "AVGO",
+        "MRVL",
+        "ANET"
+      ],
+      "affected_themes": [
+        "semis",
+        "networking",
+        "AI infrastructure"
+      ],
+      "note_he": "קטליסט ישיר ל־AI infrastructure ותשתיות רשת.",
+      "note_en": "Direct catalyst for AI infrastructure and networking.",
+      "priority": "high"
+    }
+  ],
+  "watch_items": [
+    {
+      "item": "10Y above 4.5%",
+      "why_he": "יכול ללחוץ על multiples ועל momentum.",
+      "signal_type": "rates"
+    },
+    {
+      "item": "PCE hotter than expected",
+      "why_he": "יכול להפוך את הטון בשוק במהירות.",
+      "signal_type": "macro"
+    },
+    {
+      "item": "Oil rebound",
+      "why_he": "מסכן את ה־risk-on וה־consumer.",
+      "signal_type": "commodity"
+    },
+    {
+      "item": "Broadcom earnings",
+      "why_he": "מדד מרכזי ל־AI infrastructure.",
+      "signal_type": "earnings"
+    }
+  ],
+  "sector_views": [
+    {
+      "sector": "Semis",
+      "view": "bullish",
+      "why_he": "AI capex והתפשטות המפעל הפיזי ממשיכים לתמוך.",
+      "drivers": [
+        "capex",
+        "flows"
+      ],
+      "risks": [
+        "crowding",
+        "yields"
+      ]
+    },
+    {
+      "sector": "Power",
+      "view": "bullish",
+      "why_he": "Grid, cooling ו־bridge power הם bottlenecks אמיתיים.",
+      "drivers": [
+        "data centers",
+        "load growth"
+      ],
+      "risks": [
+        "permits",
+        "supply"
+      ]
+    },
+    {
+      "sector": "Consumer",
+      "view": "mixed",
+      "why_he": "הצרכן עדיין מחזיק אבל מפוצל לפי הכנסה.",
+      "drivers": [
+        "cash balances",
+        "wages"
+      ],
+      "risks": [
+        "gasoline",
+        "pricing"
+      ]
+    }
+  ]
+}
