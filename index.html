@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Deep Analysis Desk - Fetch JSON</title>
   <style>
-    :root { --bg:#0b1020; --panel:#11182d; --panel2:#16213a; --text:#eef2ff; --muted:#9aa7c7; --accent:#6ea8fe; --good:#41d17d; --warn:#ffb84d; --bad:#ff6b6b; --border:rgba(255,255,255,.08);} 
-    *{box-sizing:border-box;} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#090d1a 0%,#0b1020 100%);color:var(--text);} 
+    :root { --bg:#090d1a; --panel:#11182d; --panel2:#16213a; --panel3:#0d1427; --text:#f3f6ff; --muted:#9aa7c7; --accent:#7db0ff; --good:#41d17d; --warn:#ffb84d; --bad:#ff6b6b; --border:rgba(255,255,255,.08);} 
+    *{box-sizing:border-box;} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 20% 10%, rgba(125,176,255,.14), transparent 28%), radial-gradient(circle at 80% 0%, rgba(65,209,125,.08), transparent 26%), linear-gradient(180deg,#050816 0%,#0b1020 55%,#09101d 100%);color:var(--text);} 
     .wrap{max-width:1600px;margin:0 auto;padding:20px;} .topbar{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:16px;} 
-    .title h1{margin:0;font-size:28px;} .title .sub{color:var(--muted);margin-top:6px;line-height:1.5;} .badge{background:rgba(110,168,254,.12);color:var(--accent);border:1px solid rgba(110,168,254,.25);padding:8px 12px;border-radius:999px;font-size:13px;white-space:nowrap;} 
-    .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;} .tile,.card,.mini,.event,.group-item{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid var(--border);border-radius:16px;} .tile{padding:14px;} .tile .label,.section-title span,.meta,.small,.company,.note,.drawer,.group-item .w{color:var(--muted);} .tile .value{font-size:26px;font-weight:800;margin-top:8px;} .tile .note{margin-top:6px;font-size:13px;line-height:1.4;} 
-    .grid{display:grid;grid-template-columns:1.2fr .95fr;gap:16px;} .card{padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.18);} .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;} .section-title h2{margin:0;font-size:18px;} .summary{line-height:1.8;color:#f1f4ff;font-size:16px;} .bullets{margin:12px 0 0;padding:0 18px 0 0;color:#dce4ff;} .bullets li{margin:8px 0;} 
+    .title h1{margin:0;font-size:28px;} .title .sub{color:var(--muted);margin-top:6px;line-height:1.5;} .badge{background:linear-gradient(135deg, rgba(125,176,255,.18), rgba(65,209,125,.14));color:#cfe0ff;border:1px solid rgba(125,176,255,.28);padding:8px 12px;border-radius:999px;font-size:13px;white-space:nowrap;box-shadow:0 8px 20px rgba(0,0,0,.18);}  
+    .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;} .tile,.card,.mini,.event,.group-item{background:linear-gradient(180deg,rgba(21,30,54,.92),rgba(10,15,29,.92));border:1px solid var(--border);border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,.22);}  .tile{padding:14px;} .tile .label,.section-title span,.meta,.small,.company,.note,.drawer,.group-item .w{color:#a9b7d6;} .tile .value{font-size:26px;font-weight:800;margin-top:8px;background:linear-gradient(90deg,#ffffff,#9ac0ff);-webkit-background-clip:text;background-clip:text;color:transparent;} .tile .note{margin-top:6px;font-size:13px;line-height:1.4;} 
+    .grid{display:grid;grid-template-columns:1.2fr .95fr;gap:16px;} .card{padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.18);} .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;} .section-title h2{margin:0;font-size:18px;background:linear-gradient(90deg,#eaf2ff,#8bb6ff);-webkit-background-clip:text;background-clip:text;color:transparent;} .summary{line-height:1.85;color:#f4f7ff;font-size:16px;text-shadow:0 1px 0 rgba(0,0,0,.08);}  .bullets{margin:12px 0 0;padding:0 18px 0 0;color:#dce4ff;} .bullets li{margin:8px 0;} 
     .group{margin-top:14px;} .group h3{margin:0 0 10px;font-size:16px;} .group-item{padding:12px;margin-bottom:10px;} .group-item .h{font-weight:700;margin-bottom:6px;} .list{display:grid;gap:10px;} .event{padding:12px;} .event .date{color:var(--accent);font-size:12px;margin-bottom:6px;} .event .title{font-weight:700;margin-bottom:6px;} .event .note{font-size:13px;line-height:1.5;} 
-    .shortlist{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;} .mini{min-width:250px;padding:14px;flex:0 0 auto;cursor:pointer;} .mini.active{outline:2px solid rgba(110,168,254,.55);} .row{display:flex;justify-content:space-between;align-items:center;gap:10px;} .ticker{font-size:20px;font-weight:800;} .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:12px;border:1px solid var(--border);background:var(--panel2);} .up{color:var(--good);} .down{color:var(--bad);} .flat{color:var(--warn);} .hover{margin-top:12px;color:#e8eeff;font-size:13px;line-height:1.5;min-height:40px;} .drawer{margin-top:12px;background:var(--panel2);border-radius:14px;padding:12px;font-size:13px;line-height:1.65;} .drawer h4{margin:0 0 6px;font-size:14px;color:var(--text);} .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;} .footer{margin-top:16px;color:var(--muted);font-size:12px;text-align:center;} .json-box{background:#08101f;border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto;max-height:260px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;white-space:pre-wrap;direction:ltr;text-align:left;} 
+    .shortlist{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;} .mini{min-width:250px;padding:14px;flex:0 0 auto;cursor:pointer;} .mini.active{outline:2px solid rgba(110,168,254,.55);} .row{display:flex;justify-content:space-between;align-items:center;gap:10px;} .ticker{font-size:20px;font-weight:800;} .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:12px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(135deg, rgba(255,255,255,.04), rgba(255,255,255,.02));} .up{color:var(--good);} .down{color:var(--bad);} .flat{color:var(--warn);} .hover{margin-top:12px;color:#edf3ff;font-size:13px;line-height:1.5;min-height:40px;} .drawer{margin-top:12px;background:linear-gradient(180deg, rgba(19,27,50,.95), rgba(11,16,32,.95));border-radius:14px;padding:12px;font-size:13px;line-height:1.65;} .drawer h4{margin:0 0 6px;font-size:14px;color:var(--text);} .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;} .footer{margin-top:16px;color:#8f9cc0;font-size:12px;text-align:center;} .json-box{background:linear-gradient(180deg, rgba(6,10,20,.96), rgba(9,14,28,.96));border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto;max-height:260px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;white-space:pre-wrap;direction:ltr;text-align:left;color:#d9e4ff;} 
     .status{font-size:12px;color:var(--muted);margin-top:8px;} 
     @media (max-width:1100px){.grid,.two{grid-template-columns:1fr;} .tiles{grid-template-columns:repeat(2,1fr);}} @media (max-width:700px){.tiles{grid-template-columns:1fr;} .topbar{flex-direction:column;}} 
   </style>
@@ -100,41 +100,3 @@
         {sector:'Consumer',view:'mixed',why_he:'הצרכן עדיין מחזיק אבל מפוצל לפי הכנסה.',drivers:['cash balances','wages'],risks:['gasoline','pricing']}
       ]
     };
-
-    const els = { tiles:document.getElementById('tiles'), dailySummary:document.getElementById('dailySummary'), dailyBullets:document.getElementById('dailyBullets'), macroCards:document.getElementById('macroCards'), eventsList:document.getElementById('eventsList'), watchCards:document.getElementById('watchCards'), shortlist:document.getElementById('shortlist'), sectorViews:document.getElementById('sectorViews'), jsonBox:document.getElementById('jsonBox'), stanceBadge:document.getElementById('stanceBadge'), summaryTag:document.getElementById('summaryTag'), status:document.getElementById('status') };
-
-    const tileData = [['Market stance','שורי','אבל צפוף, ממונף ותלוי ריבית.'],['Key risk','PCE','אם האינפלציה חמה, multiples בלחץ.'],['Leadership','AI capex','ההובלה עברה לתשתית פיזית.'],['Watch list','10Y / Oil','ריביות ונפט הם הטון של השבוע.']];
-    const badgeFor = d => d==='up' ? 'up' : d==='down' ? 'down' : 'flat';
-    const safeJoin = arr => Array.isArray(arr) ? arr.join(' · ') : '';
-
-    function render(data){
-      els.status.textContent = `Loaded from ${DATA_URL}`;
-      els.stanceBadge.textContent = `${data.market_tone.stance.toUpperCase()} · ${data.market_tone.confidence}`;
-      els.summaryTag.textContent = data.brief_title;
-      els.tiles.innerHTML = tileData.map(t=>`<div class="tile"><div class="label">${t[0]}</div><div class="value">${t[1]}</div><div class="note">${t[2]}</div></div>`).join('');
-      els.dailySummary.textContent = data.market_tone.summary_he + ' ' + 'המשימה היא להישאר בתוך הטרנד אבל לבחור את החוליות הנכונות.';
-      els.dailyBullets.innerHTML = ['AI הוא כבר מנוע קייפקס אמיתי, לא רק נרטיב מניות.','הסיכון המרכזי כרגע הוא שינוי בהובלה, לא קריסה של השוק.','Low vol, quality ו־hedges חשובים לצד חשיפות AI.'].map(x=>`<li>${x}</li>`).join('');
-      els.macroCards.innerHTML = data.macro_points.map(p=>`<div class="group-item"><div class="h">${p.point_he}</div><div class="w">${p.point_en} <span class="meta">[${p.category}]</span></div></div>`).join('');
-      els.eventsList.innerHTML = data.events_week.map(e=>`<div class="event"><div class="date">${e.date}</div><div class="title">${e.title}</div><div class="note">${e.note_he}</div><div class="small">${safeJoin(e.affected_tickers)} · ${safeJoin(e.affected_themes)}</div></div>`).join('');
-      els.watchCards.innerHTML = data.watch_items.map(w=>`<div class="group-item"><div class="h">${w.item}</div><div class="w">${w.why_he}</div></div>`).join('');
-      els.sectorViews.innerHTML = data.sector_views.map(s=>`<div class="event"><div class="title">${s.sector} — ${s.view}</div><div class="note">${s.why_he}</div><div class="small">Drivers: ${safeJoin(s.drivers)} | Risks: ${safeJoin(s.risks)}</div></div>`).join('');
-      els.shortlist.innerHTML = data.shortlist.map((item, idx)=>`<div class="mini ${idx===0?'active':''}" data-idx="${idx}"><div class="row"><div><div class="ticker">${item.ticker}</div><div class="company">${item.company}</div></div><div class="chip ${badgeFor(item.trend_direction)}">${item.hover_label}</div></div><div class="hover">${item.thesis_he}</div><div class="drawer"><h4>${item.company}</h4><div><b>Thesis:</b> ${item.thesis_he}</div><div><b>Why now:</b> ${item.why_now_he}</div><div><b>Risk:</b> ${item.risk_he}</div><div><b>Confirm:</b> ${item.confirm_he}</div><div><b>Invalidate:</b> ${item.invalidate_he}</div></div></div>`).join('');
-      els.jsonBox.textContent = JSON.stringify(data, null, 2);
-    }
-
-    async function boot(){
-      try {
-        const url = DATA_URL + (DATA_URL.includes('?') ? '&' : '?') + 'cb=' + Date.now();
-        const res = await fetch(url, { cache:'no-store' });
-        if(!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        render(data);
-      } catch (e) {
-        els.status.textContent = 'Loaded sample fallback (could not fetch external JSON).';
-        render(SAMPLE);
-      }
-    }
-    boot();
-  </script>
-</body>
-</html>
